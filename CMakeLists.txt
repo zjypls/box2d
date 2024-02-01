@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.12)
 
-project(Box2D)
+project(box2d)
 set(BOX2D_SOURCE_FILES
 		./src/collision/b2_broad_phase.cpp
 		./src/collision/b2_chain_shape.cpp
@@ -99,8 +99,13 @@ set(BOX2D_HEADER_FILES
 		include/box2d/b2_world_callbacks.h
 		include/box2d/box2d.h)
 
-add_library(Box2D STATIC ${BOX2D_SOURCE_FILES} ${BOX2D_HEADER_FILES})
-target_include_directories(Box2D PUBLIC include)
+if(BOX2D_LIBRARY_TYPE STREQUAL "SHARED")
+    add_library(box2d SHARED ${BOX2D_SOURCE_FILES} ${BOX2D_HEADER_FILES})
+else()
+    add_library(box2d STATIC ${BOX2D_SOURCE_FILES} ${BOX2D_HEADER_FILES})
+endif()
+target_include_directories(box2d PUBLIC include)
+
 
 
 #cmake_minimum_required(VERSION 3.8)
